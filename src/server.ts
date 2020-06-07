@@ -1,18 +1,14 @@
-import express from "express";
+import express from "express"
+import cors from "cors"
+import path from "path"
+
+import routes from "./routes"
 
 const app = express();
 
-const jsonReturn = {
-  name: {
-    first: "Daniel",
-    last: "Sausen"
-  },
-  age: 21,
-  company: "T-Systems do Brasil"
-}
+app.use(cors());
+app.use(express.json())
+app.use(routes)
+app.use("/assets", express.static(path.resolve(__dirname, "..", "assets")))
 
-app.get("/users", (req, res) => {
-  res.jsonp(jsonReturn)
-});
-
-app.listen(3000, () => console.log("Serving on port 3000."));
+app.listen(3333, () => console.log("Serving on port 3333."))
